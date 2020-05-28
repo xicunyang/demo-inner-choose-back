@@ -33,6 +33,7 @@ export default {
   mounted() {},
   methods: {
     begin() {
+      console.log(bug)
       this.$router.push('/list')
     },
     changeLanguage(type) {
