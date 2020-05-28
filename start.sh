@@ -9,7 +9,7 @@ docker rm -f vue-template &> /dev/null
 
 #启动容器
 docker run -d --restart=on-failure:5\
-    -p 9999:80 \
+    -p 6100:80 \
     -v $PWD/dist:/usr/share/nginx/html \
     --name vue-template nginx
 
