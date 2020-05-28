@@ -1,6 +1,7 @@
 const path = require('path')
 const srcPath = path.join(__dirname, 'src')
 const requireContext = require('require-context')
+const SentryCliPlugin = require('@sentry/webpack-plugin')
 
 process.env.isClient = process.env.NODE_ENV === 'development'
 // const requireAll = (requireContext) => requireContext.keys().map(requireContext)
@@ -84,11 +85,22 @@ module.exports = {
     output: {
       // 配合路由懒加载，实现路由文件的命名
       chunkFilename: 'chunks/[name]-[chunkhash:8].js',
+      path: path.join(__dirname, 'dist'),
+      filename: '[name].js',
+      sourceMapFilename: '[name].js.map',
     },
     resolve: {
       alias: {
         '@': srcPath,
       },
     },
+    plugins: [
+      new SentryCliPlugin({
+        include: '.',
+        ignoreFile: '.sentrycliignore',
+        ignore: ['node_modules', 'webpack.config.js'],
+        configFile: 'sentry.properties',
+      }),
+    ],
   },
 }
