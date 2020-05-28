@@ -22,7 +22,6 @@
 <script>
 export default {
   name: 'Detail',
-  inject: ['reload'],
   data() {
     return {
       item: {},
