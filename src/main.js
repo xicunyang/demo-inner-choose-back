@@ -17,6 +17,8 @@ Vue.component('icon-svg', svgIcon)
 import store from './store'
 // 权限管理
 import permission from './permission'
+// 增加错误日志收集
+import sentry from './plugins/sentry/index'
 
 // 测试vant的按需加载
 Vue.use(Button)
