@@ -23,14 +23,13 @@ module.exports = {
   ],
   // Add your custom rules here
   rules: {
-    // 'no-console': [
-    //   'error',
-    //   {
-    //     allow: ['error']
-    //   }
-    // ],
-    'indent': ['error', 2],
+    'no-console': [
+      'error',
+      {
+        allow: ['error']
+      }
+    ],
     'no-debugger': 'error',
-    'prettier/prettier': 'error',
+    'prettier/prettier': 'error'
   }
 }

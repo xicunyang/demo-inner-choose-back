@@ -13,7 +13,7 @@ export default new VueRouter({
         keepAlive: true,
       },
       component: () =>
-        import(/* webpackChunkName: "begin" */ './../pages/example/begin'),
+        import(/* webpackChunkName: "begin" */ '@/pages/example/begin'),
     },
     {
       path: '/list',
@@ -22,7 +22,7 @@ export default new VueRouter({
         keepAlive: true,
       },
       component: () =>
-        import(/* webpackChunkName: "list" */ './../pages/example/list'),
+        import(/* webpackChunkName: "list" */ '@/pages/example/list'),
     },
     {
       path: '/detail',
@@ -31,7 +31,7 @@ export default new VueRouter({
         keepAlive: true,
       },
       component: () =>
-        import(/* webpackChunkName: "detail" */ './../pages/example/detail'),
+        import(/* webpackChunkName: "detail" */ '@/pages/example/detail'),
     },
     {
       path: '/shop-list',
@@ -40,9 +40,7 @@ export default new VueRouter({
         keepAlive: false,
       },
       component: () =>
-        import(
-          /* webpackChunkName: "shop-list" */ './../pages/example/shopList'
-        ),
+        import(/* webpackChunkName: "shop-list" */ '@/pages/example/shopList'),
     },
     {
       path: '/shop-detail',
@@ -52,7 +50,7 @@ export default new VueRouter({
       },
       component: () =>
         import(
-          /* webpackChunkName: "shop-detail" */ './../pages/example/shopDetail'
+          /* webpackChunkName: "shop-detail" */ '@/pages/example/shopDetail'
         ),
     },
     {
@@ -62,7 +60,7 @@ export default new VueRouter({
         keepAlive: false,
       },
       component: () =>
-        import(/* webpackChunkName: "buy" */ './../pages/example/buy'),
+        import(/* webpackChunkName: "buy" */ '@/pages/example/buy'),
     },
   ],
 })

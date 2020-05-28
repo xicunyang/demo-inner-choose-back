@@ -1,12 +1,23 @@
 const path = require('path')
 const srcPath = path.join(__dirname, 'src')
+const requireContext = require('require-context')
 
-console.log(process.env.NODE_ENV)
 process.env.isClient = process.env.NODE_ENV === 'development'
-console.log('process.env.isClient', process.env.isClient)
+// const requireAll = (requireContext) => requireContext.keys().map(requireContext)
+// const req = requireContext(path.join(srcPath, 'icons/svgs'), false, /\.svg$/)
+// requireAll(req)
 
 module.exports = {
   lintOnSave: true,
+  pluginOptions: {
+    'style-resources-loader': {
+      preProcessor: 'less',
+      patterns: [
+        path.join(srcPath, 'style/variables.less'),
+        path.join(srcPath, 'style/common.less'),
+      ],
+    },
+  },
   devServer: {
     // node层做了前端跨域
     /**后端是不是微服务类型
@@ -42,11 +53,42 @@ module.exports = {
     },
   },
 
-  chainWebpack: (config) => {},
+  chainWebpack: (config) => {
+    const svgRule = config.module.rule('svg')
+    // 清楚已有的所有loader
+    // 如果不这样做，接下来的loader会附加在该规则现有的loader之后
+    svgRule.uses.clear()
+    svgRule
+      .test(/\.svg$/)
+      .include.add(path.join(srcPath, 'icons/svgs'))
+      .end()
+      .use('svg-sprite-loader')
+      .loader('svg-sprite-loader')
+      .options({
+        symbolId: 'icon-[name]',
+      })
+    // 本来只添加svg-sprite-loader就行了，但是svg也是图片的一种，
+    // 所以file-loader也会对其进行处理，所以就会冲突，解决的办法
+    // 就是，在项目中新建一个文件icons，使用file-loader编译svg
+    // 的时候不编译icons里面的图标
+    const fileRule = config.module.rule('file')
+    fileRule.uses.clear()
+    fileRule
+      .test(/\.svg$/)
+      .exclude.add(path.join(srcPath, 'icons/svgs'))
+      .end()
+      .use('file-loader')
+      .loader('file-loader')
+  },
   configureWebpack: {
     output: {
       // 配合路由懒加载，实现路由文件的命名
       chunkFilename: 'chunks/[name]-[chunkhash:8].js',
+    },
+    resolve: {
+      alias: {
+        '@': srcPath,
+      },
     },
   },
 }

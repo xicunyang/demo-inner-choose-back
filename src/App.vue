@@ -9,12 +9,18 @@
 </template>
 
 <script>
+import {CHANGE_TOKEN_ACTION} from './store/actions-type'
+
 export default {
   name: 'App',
+  async mounted() {
+    await this.$store.dispatch(CHANGE_TOKEN_ACTION)
+    console.log(this.$store.getters.getToken)
+  },
 }
 </script>
 
-<style scoped>
+<style scoped lang="less">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
