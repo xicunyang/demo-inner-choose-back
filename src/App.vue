@@ -15,7 +15,6 @@ export default {
   name: 'App',
   async mounted() {
     await this.$store.dispatch(CHANGE_TOKEN_ACTION)
-    console.log(this.$store.getters.getToken)
   },
 }
 </script>

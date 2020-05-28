@@ -59,7 +59,6 @@ export default {
       this.initPageData()
     },
     initPageData() {
-      console.log('init')
       setTimeout(() => {
         this.item = this.$route.query
         this.mainLoading = false
